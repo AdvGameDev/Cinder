@@ -1,20 +1,22 @@
 # Card Design Writing Conventions
 
 ## Shorthands:
-### Energy Cost
-Fire (F), Earth (E), Water (W), Air (A), Generic (#)
-  - e.g. 2 Generic, 3 Fire, 1 Water = {2FFFW}
+### Elements
+Fire (F), Earth (E), Water (W), Air (A), Neutral (N), Generic (#)
+
+Energy Cost is denoted in \{curly brackets\}
+Crafting Cost is denoted in \[square brackets\]
 
 ### Rarity
-Common (C), Uncommon (U), Rare (R), Legendary 
+Common (C), Uncommon (U), Rare (R), Legendary (L)
 
 ## Card Template:
 
-\<Name\> (\<Rarity\>): \{\<Energy Cost\>\}
+\<Name\> (\<Rarity\>): \{\<Energy Cost\>\} \[\<Crafting Cost\>\] -\> \<Quantity Produced\> 
 - List of Effects
 
 e.g. 
-Steam Attack (C): {1FW}
+Steam Attack (C): {1FW} \[FW\] -> 3
 - Deal 8 damage
 - Draw a card
-- Gain {FW}
+- Add {FW}
