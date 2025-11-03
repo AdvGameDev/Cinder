@@ -21,3 +21,9 @@ Metals (NOT IN MVP) (rarity gates) (maybe used to craft artifacts):
 - Copper
 - Silver
 - Gold
+
+Other Ideas:
+
+- Alternate Win Conditions for Battles (besides reducing opponent health to 0)?
+- Not showing enemy intent but allowing certain spells that can be played during the opponent's turn (fast spells?)
+- 
