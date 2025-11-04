@@ -1,4 +1,4 @@
-## Energy Cards
+# Energy Cards
 - [ ] Neutral Energy: \[1\] -> 12
   - Add {N}
  
@@ -11,7 +11,7 @@
 - [ ] Earth Energy: \[E\] -> 6
   - Add {E}
 
-## Neutral Spells:
+# Neutral Spells:
 
 - [ ] Strike: {1} \[1\] -> 6
   - Deal 6 Damage
@@ -32,3 +32,12 @@
 - [ ] Think Quickly: {2} \[2\] -> 3
   - Draw 2 Cards
 
+# Fire Spells:
+
+- [ ] Fire Bolt: {F} \[F\] -> 5
+  - Deal 8 damage 
+
+- [ ] Fireball: {FF} \[FF\] -> 3
+  - Deal 17 damage to ALL enemies
+
+- [ ] 
