@@ -27,17 +27,17 @@ public class Deck : List<Card>
         this.Add(card);
     }
 
+    public void RemoveCard(int index)
+    {
+        this.RemoveAt(index);
+    }
+
     public void FillDeckWithPlaceholderCards()
     {
         this.Clear();
-        for (int i = 0; i < 30; i++)
+        for (int i = 0; i < 10; i++)
         {
-            CraftingRecipeTemplate craftingRecipeTemplate = ScriptableObject.CreateInstance<CraftingRecipeTemplate>();
-            craftingRecipeTemplate.RecipeName = "Placeholder Recipe";
-            craftingRecipeTemplate.CraftingEssenceCost = new List<int> { 10, 10, 10, 10 };
-            craftingRecipeTemplate.UsesNeutralEssence = false;
-            craftingRecipeTemplate.CraftingResult = null;
-            Card card = new Card("Placeholder Card", "This is a placeholder card.", craftingRecipeTemplate);
+            Card card = new Card("Placeholder Card", "Temp.");
             this.Add(card);
         }
     }
