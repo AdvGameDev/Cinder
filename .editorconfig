@@ -96,5 +96,9 @@ dotnet_naming_symbols.private_fields.applicable_accessibilities = private
 dotnet_naming_style.camel_case_style.capitalization = camel_case
 dotnet_naming_style.camel_case_style.required_prefix = _
 
-# Prefer simplified object creation (new())
-csharp_style_implicit_object_creation_when_type_is_apparent = true:suggestion
+# Style nits
+csharp_style_implicit_object_creation_when_type_is_apparent = none
+dotnet_analyzer_diagnostic.category-Style.severity = none
+
+# Disable suggestion "Declare types in namespaces"
+dotnet_diagnostic.CA1050.severity = none
