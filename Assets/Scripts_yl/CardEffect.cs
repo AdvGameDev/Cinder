@@ -56,7 +56,7 @@ public struct CardEffect
     {
         effectType = type;
         effectValue = value;
-        associatedElement = ElementType.None;
+        associatedElement = ElementType.Neutral;
         effectDescription = string.Empty;
     }
 
@@ -91,7 +91,7 @@ public struct CardEffect
             case CardEffectType.Heal:
                 return $"Heal {effectValue} HP";
             case CardEffectType.GainEnergy:
-                return associatedElement != ElementType.None 
+                return associatedElement != ElementType.Neutral 
                     ? $"Gain {effectValue} {associatedElement} energy" 
                     : $"Gain {effectValue} energy";
             case CardEffectType.DrawCards:

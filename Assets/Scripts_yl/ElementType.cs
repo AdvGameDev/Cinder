@@ -5,9 +5,8 @@ using UnityEngine;
 /// </summary>
 public enum ElementType
 {
-    None = 0,   /// No specific element
+    Neutral = 0,   /// No specific element
     Fire = 1,   /// Fire element
     Earth = 2,  /// Earth element
-    Water = 3,  /// Water element
-    Air = 4,    /// Air element
+    Air = 3,    /// Air element
 }

@@ -28,9 +28,6 @@ public class CardTemplate : ScriptableObject
     [Tooltip("Card artwork/illustration")]
     public Sprite cardArt;
 
-    [Tooltip("Card's primary element (for visual categorization)")]
-    public ElementType primaryElement = ElementType.None;
-
     /// <summary>
     /// Get the full card description (including all effects)
     /// </summary>
@@ -46,16 +43,6 @@ public class CardTemplate : ScriptableObject
             auto += effect.GetEffectDescription() + "\n";
         }
         return auto.TrimEnd('\n');
-    }
-
-    /// <summary>
-    /// Check if this card can be played (based on energy)
-    /// </summary>
-    /// <param name="availableEnergy">Currently available energy</param>
-    /// <returns>Whether the card can be played</returns>
-    public bool CanPlay(Dictionary<ElementType, int> availableEnergy)
-    {
-        return energyCost.CanAfford(availableEnergy);
     }
 
     /// <summary>
