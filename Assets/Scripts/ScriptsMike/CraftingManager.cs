@@ -18,7 +18,6 @@ public class CraftingManager : MonoBehaviour
         PlayerDeck = new Deck();
         PlayerDeck.FillDeckWithPlaceholderCards(); // Fill with placeholder cards for testing (Temp)
         PlayerEssences = new List<int> { 100, 100, 100, 100, 100 }; // Fill with some starting essences (Temp)
-        Debug.Log(PlayerDeck.PrintDeckContent(0, 5));
         DeckDisplayText.text = $"Current Deck:\n{PlayerDeck.PrintDeckContent()}";
         EssenceDisplayText.text = $"Essences:\nFire: {PlayerEssences[0]}\nEarth: {PlayerEssences[1]}\nWater: {PlayerEssences[2]}\nAir: {PlayerEssences[3]}\nGeneric: {PlayerEssences[4]}";
     }
@@ -95,6 +94,7 @@ public class CraftingManager : MonoBehaviour
 
     public void DestroyCard(int index)
     {
+        Assert.IsTrue(index >= 0 && index < PlayerDeck.Count, $"Invalid Destroy operation at index {index}");
         Debug.Log($"Card {PlayerDeck[index].Title} has been Destroyed");
         PlayerDeck.RemoveAt(index);
     }
