@@ -13,7 +13,7 @@ Energy Cards have no Energy Cost
 \<Name\>: \{\<Energy Cost\>\} \[\<Crafting Cost\>\] -\> \<Quantity Produced\> 
 - List of Effects
 
-e.g. \\
+e.g. \
 Steam Attack: {1FW} \[FW\] -> 3
 - Deal 8 damage
 - Draw a card
@@ -24,7 +24,7 @@ Steam Attack: {1FW} \[FW\] -> 3
 \<Name\>: \{\<HP\>\} \[\<Drops>\]
 - List of Moves (Pseudocode by turn)
 
-e.g.\\
+e.g. \
 Wildfire Elemental: {60} [3xF, 3xA]
 - For x = 0 to 2
   - Deal (1 + x * 0.3) * RANDOM([15, 25]) Damage
@@ -36,7 +36,7 @@ Wildfire Elemental: {60} [3xF, 3xA]
 \<Name\>: \[\<Extra Drops (if any)>\] 
 - \<Number\> Enemies
 
-e.g.\\
+e.g.\
 Forest Fire: \[FA\]
 - 2 Wildfire Elemental
 - 2 Treefolk
