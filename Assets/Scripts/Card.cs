@@ -1,7 +1,21 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Card", menuName = "Scriptable Objects/Card")]
-public class Card : ScriptableObject
+public enum CardType { Action, Energy }
+
+[System.Serializable]
+public class Card
 {
-    // This is a placeholder
+    public string cardName;
+    public CardType cardType;
+    public string description;
+
+    public EnergyCost energyCost;
+
+    public List<CardEffect> effects;
+
+    public Card()
+    {
+        effects = new List<CardEffect>();
+    }
 }
