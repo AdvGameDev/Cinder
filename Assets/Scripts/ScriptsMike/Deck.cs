@@ -6,9 +6,9 @@ using UnityEngine.Assertions;
 using System.Dynamic;
 
 [System.Serializable]
-public class Deck : List<Card>
+public class MikeDeck : List<MikeCard>
 {
-    public Deck() { }
+    public MikeDeck() { }
     public string PrintDeckContent(int minLine = 0, int maxLine = int.MaxValue)
     {
         StringBuilder builder = new StringBuilder();
@@ -21,7 +21,7 @@ public class Deck : List<Card>
         return builder.ToString();
     }
 
-    public void AddCard(Card card)
+    public void AddCard(MikeCard card)
     {
         Assert.IsNotNull(card);
         this.Add(card);
@@ -37,7 +37,7 @@ public class Deck : List<Card>
         this.Clear();
         for (int i = 0; i < 10; i++)
         {
-            Card card = new Card("Placeholder Card", "Temp.");
+            MikeCard card = new MikeCard("Placeholder Card", "Temp.");
             this.Add(card);
         }
     }

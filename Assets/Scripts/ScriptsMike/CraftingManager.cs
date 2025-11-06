@@ -8,14 +8,14 @@ using UnityEngine.UI;
 public class CraftingManager : MonoBehaviour
 {
     public static CraftingManager Instance;
-    public Deck PlayerDeck;
+    public MikeDeck PlayerDeck;
     public TextMeshProUGUI DeckDisplayText;
     public TextMeshProUGUI EssenceDisplayText;
     public List<int> PlayerEssences;
 
     void Start()
     {
-        PlayerDeck = new Deck();
+        PlayerDeck = new MikeDeck();
         PlayerDeck.FillDeckWithPlaceholderCards(); // Fill with placeholder cards for testing (Temp)
         PlayerEssences = new List<int> { 100, 100, 100, 100, 100 }; // Fill with some starting essences (Temp)
         DeckDisplayText.text = $"Current Deck:\n{PlayerDeck.PrintDeckContent()}";
