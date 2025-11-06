@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 
 [System.Serializable]
@@ -7,34 +6,47 @@ public class Deck
 {
     public List<Card> cards = new List<Card>();
 
-    // Populate with mock cards
-    public Deck()
+    public void Initialize(List<Card> initialCards)
     {
-        cards.Add(new Card("One", 8, 5));
-        cards.Add(new Card("Two", 5, 2));
-        cards.Add(new Card("Three", 6, 9));
-        cards.Add(new Card("Four", 4, 4));
-        cards.Add(new Card("Five", 7, 3));
+        cards.Clear();
+        if (initialCards != null)
+        {
+            cards.AddRange(initialCards);
+        }
+        Shuffle();
     }
 
-    public void DrawCard(Hand hand)
+    public void Shuffle()
+    {
+        for (int i = 0; i < cards.Count; i++)
+        {
+            Card temp = cards[i];
+            int randomIndex = Random.Range(i, cards.Count);
+            cards[i] = cards[randomIndex];
+            cards[randomIndex] = temp;
+        }
+    }
+
+    public Card DrawCard()
     {
         if (cards.Count == 0)
         {
-            return;
+            return null;
         }
 
-        if (hand.cardsInHand.Count >= hand.maxHandSize)
-        {
-            return;
-        }
+        Card drawnCard = cards[0];
+        cards.RemoveAt(0);
 
-        int lastIndex = cards.Count - 1;
-        Card topCard = cards[lastIndex];
-        cards.RemoveAt(lastIndex);
-
-        // Add the card to the hand
-        hand.cardsInHand.Add(topCard);
-        return;
+        return drawnCard;
     }
+
+    public void AddCard(Card card)
+    {
+        if (card != null)
+        {
+            cards.Add(card);
+        }
+    }
+
+    public int CardCount => cards.Count;
 }

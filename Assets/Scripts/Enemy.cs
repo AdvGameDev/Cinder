@@ -1,13 +1,37 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 
-public class Enemy : Character, IPointerClickHandler
+public class Enemy : Character
 {
-    public int damage = 5;
+    [Header("Enemy Stats")]
+    [SerializeField] private int _attackDamage = 5;
+    // Add more actions later
 
-    public void OnPointerClick(PointerEventData eventData)
+    private string _nextTurnIntent;
+
+    public override void Setup(int startingHealth, int newMaxHealth)
     {
-        TakeDamage(damage);
+        base.Setup(startingHealth, newMaxHealth);
+        PrepareNextTurn();
+    }
+
+    public void TakeTurn(Player target)
+    {
+        if (target == null || target.isDead) return;
+
+        // For now the only action is to attack
+        Debug.Log($"Enemy attacks for {_attackDamage} damage.");
+        target.TakeDamage(_attackDamage);
+
+        PrepareNextTurn();
+    }
+
+    private void PrepareNextTurn()
+    {
+        _nextTurnIntent = $"Attack ({_attackDamage})";
+    }
+
+    public string GetIntent()
+    {
+        return _nextTurnIntent;
     }
 }

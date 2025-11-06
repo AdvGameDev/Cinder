@@ -1,33 +1,21 @@
 using System.Collections.Generic;
+using UnityEngine;
+
+public enum CardType { Action, Energy }
 
 [System.Serializable]
 public class Card
 {
-    [System.Serializable]
-    public struct EssenceCost
+    public string cardName;
+    public CardType cardType;
+    public string description;
+
+    public EnergyCost energyCost;
+
+    public List<CardEffect> effects;
+
+    public Card()
     {
-        public int fire;
-        public int water;
-        public int earth;
-
-        public EssenceCost(int fire, int water, int earth)
-        {
-            this.fire = fire;
-            this.water = water;
-            this.earth = earth;
-        }
-    }
-
-    public string name;
-    public int damage;
-    public int armor;
-    public EssenceCost essenceCost;
-
-    public Card(string name, int damage, int armor)
-    {
-        this.name = name;
-        this.damage = damage;
-        this.armor = armor;
-        this.essenceCost = new EssenceCost(0, 1, 0);
+        effects = new List<CardEffect>();
     }
 }
