@@ -63,7 +63,7 @@ public class HandUI : MonoBehaviour
         float cardWidth = 100f;
         float spacing = 20f;
         var cardUIs = _cardToUIMap.Values.ToList();
-        float totalWidth = (cardUIs.Count - 1) * (cardWidth + spacing);
+        float totalWidth = (cardUIs.Count - 1) * (cardWidth + spacing) + cardWidth;
         float startX = -totalWidth / 2f;
 
         for (int i = 0; i < cardUIs.Count; i++)
