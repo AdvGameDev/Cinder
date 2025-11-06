@@ -6,14 +6,12 @@ using System.Text;
 public class CraftingRecipeTemplate : ScriptableObject
 {
     public string RecipeName;
-    public List<int> CraftingEssenceCost; // [0] = Fire, [1] = Earth, [2] = Water, [3] = Air, [4] = Generic
-    public bool UsesNeutralEssence; // If true, then any essence can be used to fulfill the cost
+    public List<int> CraftingEssenceCost; // [0] = Fire, [1] = Earth, [2] = Water, [3] = Air, [4] = Generi
     public Card CraftingResult;
 
-    public CraftingRecipeTemplate(string recipeName, List<int> craftingEssenceCost, Card craftingResult, bool usesNeutralEssence = false)
+    public CraftingRecipeTemplate(string recipeName, List<int> craftingEssenceCost, Card craftingResult)
     {
         RecipeName = recipeName;
-        UsesNeutralEssence = usesNeutralEssence;
         CraftingEssenceCost = craftingEssenceCost;
         CraftingResult = craftingResult;
     }

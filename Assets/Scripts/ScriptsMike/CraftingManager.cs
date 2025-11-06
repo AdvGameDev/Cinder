@@ -22,7 +22,7 @@ public class CraftingManager : MonoBehaviour
         EssenceDisplayText.text = $"Essences:\nFire: {PlayerEssences[0]}\nEarth: {PlayerEssences[1]}\nWater: {PlayerEssences[2]}\nAir: {PlayerEssences[3]}\nGeneric: {PlayerEssences[4]}";
     }
 
-    void Update()
+    void UpdateText()
     {
         DeckDisplayText.text = $"Current Deck:\n{PlayerDeck.PrintDeckContent()}";
         EssenceDisplayText.text = $"Essences:\nFire: {PlayerEssences[0]}\nEarth: {PlayerEssences[1]}\nWater: {PlayerEssences[2]}\nAir: {PlayerEssences[3]}\nGeneric: {PlayerEssences[4]}";
@@ -43,12 +43,6 @@ public class CraftingManager : MonoBehaviour
     bool CanCraftCard(CraftingRecipeTemplate recipe)
     {
         Assert.IsNotNull(recipe);
-        if (recipe.UsesNeutralEssence)
-        {
-            int totalNeeded = recipe.CraftingEssenceCost.Sum();
-            int totalAvailable = PlayerEssences.Sum();
-            return totalAvailable >= totalNeeded;
-        }
         for (int i = 0; i < PlayerEssences.Count; i++)
         {
             if (PlayerEssences[i] < recipe.CraftingEssenceCost[i])
@@ -59,7 +53,6 @@ public class CraftingManager : MonoBehaviour
         return true;
     }
 
-    // TODO: Crafting with neutral essences not implemented yet
     public void CraftCard(CraftingRecipeTemplate recipe)
     {
         Assert.IsNotNull(recipe);
@@ -74,15 +67,7 @@ public class CraftingManager : MonoBehaviour
         }
         PlayerDeck.AddCard(recipe.CraftingResult);
         Debug.Log($"Crafted card: {recipe.CraftingResult.Title}");
-    }
-
-    public void AddEssenceAll(int amount)
-    {
-        for (int i = 0; i < PlayerEssences.Count; i++)
-        {
-            PlayerEssences[i] += amount;
-            Debug.Log($"Added {amount} essence of type {i}. New total: {PlayerEssences[i]}");
-        }
+        UpdateText();
     }
 
     public void AddEssence(int typeIndex, int amount)
@@ -90,42 +75,51 @@ public class CraftingManager : MonoBehaviour
         Assert.IsTrue(typeIndex >= 0 && typeIndex < PlayerEssences.Count);
         PlayerEssences[typeIndex] += amount;
         Debug.Log($"Added {amount} essence of type {typeIndex}. New total: {PlayerEssences[typeIndex]}");
+        UpdateText();
     }
 
     public void DestroyCard(int index)
     {
-        Assert.IsTrue(index >= 0 && index < PlayerDeck.Count, $"Invalid Destroy operation at index {index}");
+        Assert.IsTrue(index >= -1 && index < PlayerDeck.Count, $"Invalid Destroy operation at index {index}");
+        Assert.IsTrue(PlayerDeck.Count > 0, $"Deck is already empty, no cards left to destroy");
+        if (index == -1) index = PlayerDeck.Count - 1;
         Debug.Log($"Card {PlayerDeck[index].Title} has been Destroyed");
         PlayerDeck.RemoveAt(index);
+        UpdateText();
     }
 
-    public void DestroyLastCard()
-    {
-        DestroyCard(PlayerDeck.Count - 1);
-    }
-
-    public void AddFireEssence(int amount)
+    public void AddFireEssence(int amount) // For testing
     {
         AddEssence(0, amount);
     }
 
-    public void AddEarthEssence(int amount)
+    public void AddEarthEssence(int amount) // For testing
     {
         AddEssence(1, amount);
     }
 
-    public void AddWaterEssence(int amount)
+    public void AddWaterEssence(int amount) // For testing
     {
         AddEssence(2, amount);
     }
 
-    public void AddAirEssence(int amount)
+    public void AddAirEssence(int amount) // For testing
     {
         AddEssence(3, amount);
     }
 
-    public void AddGenericEssence(int amount)
+    public void AddGenericEssence(int amount) // For testing
     {
         AddEssence(4, amount);
+    }
+
+    public void AddEssenceAll(int amount) // For testing
+    {
+        for (int i = 0; i < PlayerEssences.Count; i++)
+        {
+            PlayerEssences[i] += amount;
+            Debug.Log($"Added {amount} essence of type {i}. New total: {PlayerEssences[i]}");
+        }
+        UpdateText();
     }
 }
