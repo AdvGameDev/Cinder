@@ -107,14 +107,14 @@ public class Player : Character
 
     // --- Energy & Card Logic ---
 
-    private int GetTotalEnergyAvailableForGeneric(EnergyCost cost)
+    private int GetTotalEnergyAvailableForGeneric(ElementCost cost)
     {
         int totalAvailable = 0;
         foreach (ElementType element in Enum.GetValues(typeof(ElementType)))
         {
             int availableForGeneric = _currentEnergy.ContainsKey(element) ? _currentEnergy[element] : 0;
 
-            var specificCostForElement = cost.specificCosts?.FirstOrDefault(ec => ec.elementType == element);
+            var specificCostForElement = cost.Specific?.FirstOrDefault(ec => ec.elementType == element);
             if (specificCostForElement.HasValue)
             {
                 availableForGeneric -= specificCostForElement.Value.amount;
@@ -128,12 +128,12 @@ public class Player : Character
         return totalAvailable;
     }
 
-    public bool TrySpendEnergy(EnergyCost cost)
+    public bool TrySpendEnergy(ElementCost cost)
     {
         // Check specific costs
-        if (cost.specificCosts != null)
+        if (cost.Specific != null)
         {
-            foreach (var elementCost in cost.specificCosts)
+            foreach (var elementCost in cost.Specific)
             {
                 if (!_currentEnergy.ContainsKey(elementCost.elementType) || _currentEnergy[elementCost.elementType] < elementCost.amount)
                 {
@@ -143,9 +143,9 @@ public class Player : Character
         }
 
         // Check generic cost
-        if (cost.genericCost > 0)
+        if (cost.Generic > 0)
         {
-            if (GetTotalEnergyAvailableForGeneric(cost) < cost.genericCost)
+            if (GetTotalEnergyAvailableForGeneric(cost) < cost.Generic)
             {
                 return false;
             }
@@ -153,16 +153,16 @@ public class Player : Character
 
         // If affordable, proceed to Spend
 
-        if (cost.specificCosts != null)
+        if (cost.Specific != null)
         {
-            foreach (var elementCost in cost.specificCosts)
+            foreach (var elementCost in cost.Specific)
             {
                 _currentEnergy[elementCost.elementType] -= elementCost.amount;
             }
         }
 
         // Spend generic cost from the most abundant element
-        int remainingGeneric = cost.genericCost;
+        int remainingGeneric = cost.Generic;
         while (remainingGeneric > 0)
         {
             ElementType? mostAbundantElement = null;

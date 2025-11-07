@@ -10,7 +10,7 @@ public class Card
     public CardType cardType;
     public string description;
 
-    public EnergyCost energyCost;
+    public ElementCost energyCost;
 
     public List<CardEffect> effects;
 

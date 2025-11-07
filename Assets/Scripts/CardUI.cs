@@ -29,14 +29,14 @@ public class CardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
 
         var costParts = new List<string>();
 
-        if (_cardData.energyCost.genericCost > 0)
+        if (_cardData.energyCost.Generic > 0)
         {
-            costParts.Add(_cardData.energyCost.genericCost.ToString());
+            costParts.Add(_cardData.energyCost.Generic.ToString());
         }
 
-        if (_cardData.energyCost.specificCosts != null)
+        if (_cardData.energyCost.Specific != null)
         {
-            foreach (var specificCosts in _cardData.energyCost.specificCosts)
+            foreach (var specificCosts in _cardData.energyCost.Specific)
             {
                 costParts.Add($"{specificCosts.amount} {specificCosts.elementType}");
             }
