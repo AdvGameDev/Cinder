@@ -82,7 +82,7 @@ public static class InitialDeckData
     public static List<Card> GetInitialEnergyDeck()
     {
         List<Card> energyDeck = new List<Card>();
-        EnergyCost costToPlay = new EnergyCost(0, new List<ElementCost>());
+        ElementCost costToPlay = new EnergyCost(0, new List<ElementCost>());
 
         Card fireEnergyCard = new Card
         {
