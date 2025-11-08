@@ -4,31 +4,60 @@ using System.Collections.Generic;
 using UnityEngine.Assertions;
 using System.Linq;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public class CraftingManager : MonoBehaviour
 {
     public static CraftingManager Instance;
-    public MikeDeck PlayerDeck;
-    public TextMeshProUGUI DeckDisplayText;
-    public TextMeshProUGUI EssenceDisplayText;
-    public List<int> PlayerEssences;
+
+    [Header("References")]
+    [SerializeField] private TextMeshProUGUI EssenceDisplayText;
+    [SerializeField] private CraftingMenuDeckUI ActionDeckUI;
+    [SerializeField] private CraftingMenuDeckUI EnergyDeckUI;
+    [SerializeField] private GameObject DebugTools; // Temp
+    private bool ShowDebugTools = false;
+
+    [Header("Player stuff")]
+    [SerializeField] private Deck PlayerEnergyDeck;
+    [SerializeField] private Deck PlayerActionDeck;
+    [SerializeField] private List<int> PlayerEssences;
 
     void Start()
     {
-        PlayerDeck = new MikeDeck();
-        PlayerDeck.FillDeckWithPlaceholderCards(); // Fill with placeholder cards for testing (Temp)
-        PlayerEssences = new List<int> { 100, 100, 100, 100, 100 }; // Fill with some starting essences (Temp)
-        DeckDisplayText.text = $"Current Deck:\n{PlayerDeck.PrintDeckContent()}";
-        EssenceDisplayText.text = $"Essences:\nFire: {PlayerEssences[0]}\nEarth: {PlayerEssences[1]}\nWater: {PlayerEssences[2]}\nAir: {PlayerEssences[3]}\nGeneric: {PlayerEssences[4]}";
+        DebugTools.SetActive(ShowDebugTools);
+
+        PlayerEnergyDeck = new Deck();
+        PlayerEnergyDeck.Initialize(InitialDeckData.GetInitialEnergyDeck());
+        EnergyDeckUI?.Initialize(this, PlayerEnergyDeck);
+        
+        PlayerActionDeck = new Deck();
+        PlayerActionDeck.Initialize(InitialDeckData.GetInitialPlayerDeck());
+        ActionDeckUI?.Initialize(this, PlayerActionDeck);
+
+        PlayerEssences = new List<int> { 100, 100, 100, 100, 100 };
+
+        UpdateEssenceText();
+        UpdateDeck();
     }
 
-    void UpdateText()
+    private void UpdateEssenceText()
     {
-        DeckDisplayText.text = $"Current Deck:\n{PlayerDeck.PrintDeckContent()}";
         EssenceDisplayText.text = $"Essences:\nFire: {PlayerEssences[0]}\nEarth: {PlayerEssences[1]}\nWater: {PlayerEssences[2]}\nAir: {PlayerEssences[3]}\nGeneric: {PlayerEssences[4]}";
     }
 
-    void Awake()
+    private void UpdateDeck()
+    {
+        EnergyDeckUI.DisplayDeck();
+        ActionDeckUI.DisplayDeck();
+    }
+
+    public void ToggleDebugTools()
+    {
+        ShowDebugTools = !ShowDebugTools;
+        DebugTools.SetActive(ShowDebugTools);
+    }
+
+    private void Awake()
     {
         if (Instance == null)
         {
@@ -40,7 +69,7 @@ public class CraftingManager : MonoBehaviour
         }
     }
 
-    bool CanCraftCard(CraftingRecipeTemplate recipe)
+    private bool CanCraftCard(CraftingRecipeTemplate recipe)
     {
         Assert.IsNotNull(recipe);
         for (int i = 0; i < PlayerEssences.Count; i++)
@@ -55,19 +84,19 @@ public class CraftingManager : MonoBehaviour
 
     public void CraftCard(CraftingRecipeTemplate recipe)
     {
-        Assert.IsNotNull(recipe);
-        if (!CanCraftCard(recipe))
-        {
-            Debug.Log("Not enough essences to craft this card.");
-            return;
-        }
-        for (int i = 0; i < PlayerEssences.Count; i++)
-        {
-            PlayerEssences[i] -= recipe.CraftingEssenceCost[i];
-        }
-        PlayerDeck.AddCard(recipe.CraftingResult);
-        Debug.Log($"Crafted card: {recipe.CraftingResult.Title}");
-        UpdateText();
+        // Assert.IsNotNull(recipe);
+        // if (!CanCraftCard(recipe))
+        // {
+        //     Debug.Log("Not enough essences to craft this card.");
+        //     return;
+        // }
+        // for (int i = 0; i < PlayerEssences.Count; i++)
+        // {
+        //     PlayerEssences[i] -= recipe.CraftingEssenceCost[i];
+        // }
+        // PlayerDeck.AddCard(recipe.CraftingResult); // add card to player's deck
+        // Debug.Log($"Crafted card: {recipe.CraftingResult.cardName}");
+        // UpdateText();
     }
 
     public void AddEssence(int typeIndex, int amount)
@@ -75,17 +104,17 @@ public class CraftingManager : MonoBehaviour
         Assert.IsTrue(typeIndex >= 0 && typeIndex < PlayerEssences.Count);
         PlayerEssences[typeIndex] += amount;
         Debug.Log($"Added {amount} essence of type {typeIndex}. New total: {PlayerEssences[typeIndex]}");
-        UpdateText();
+        UpdateEssenceText();
     }
 
     public void DestroyCard(int index)
     {
-        Assert.IsTrue(index >= -1 && index < PlayerDeck.Count, $"Invalid Destroy operation at index {index}");
-        Assert.IsTrue(PlayerDeck.Count > 0, $"Deck is already empty, no cards left to destroy");
-        if (index == -1) index = PlayerDeck.Count - 1;
-        Debug.Log($"Card {PlayerDeck[index].Title} has been Destroyed");
-        PlayerDeck.RemoveAt(index);
-        UpdateText();
+        // Assert.IsTrue(index >= -1 && index < PlayerDeck.cards.Count, $"Invalid Destroy operation at index {index}");
+        // Assert.IsTrue(PlayerDeck.cards.Count > 0, $"Deck is already empty, no cards left to destroy");
+        // if (index == -1) index = PlayerDeck.cards.Count - 1;
+        // Debug.Log($"Card {PlayerDeck.cards[index].cardName} has been Destroyed");
+        // PlayerDeck.cards.RemoveAt(index);
+        // UpdateText();
     }
 
     public void AddFireEssence(int amount) // For testing
@@ -120,6 +149,6 @@ public class CraftingManager : MonoBehaviour
             PlayerEssences[i] += amount;
             Debug.Log($"Added {amount} essence of type {i}. New total: {PlayerEssences[i]}");
         }
-        UpdateText();
+        UpdateEssenceText();
     }
 }

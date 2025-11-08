@@ -7,9 +7,9 @@ public class CraftingRecipeTemplate : ScriptableObject
 {
     public string RecipeName;
     public List<int> CraftingEssenceCost; // [0] = Fire, [1] = Earth, [2] = Water, [3] = Air, [4] = Generi
-    public MikeCard CraftingResult;
+    public Card CraftingResult;
 
-    public CraftingRecipeTemplate(string recipeName, List<int> craftingEssenceCost, MikeCard craftingResult)
+    public CraftingRecipeTemplate(string recipeName, List<int> craftingEssenceCost, Card craftingResult)
     {
         RecipeName = recipeName;
         CraftingEssenceCost = craftingEssenceCost;

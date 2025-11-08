@@ -14,7 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CraftingRecipeTemplate
   RecipeName: TempCraftedCard
   CraftingEssenceCost: 0a00000000000000000000000000000000000000
-  UsesNeutralEssence: 0
   CraftingResult:
-    Title: TempCraftedCard
-    Description: Temp
+    cardName: CraftedCard
+    cardType: 0
+    description: Temp
+    energyCost:
+      genericCost: 0
+      specificCosts: []
+    effects: []
