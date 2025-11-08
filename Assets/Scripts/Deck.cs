@@ -49,15 +49,5 @@ public class Deck
         }
     }
 
-    public string PrintDeckContent()
-    {
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < cards.Count; i++)
-        {
-            builder.AppendLine($"  {i}. {cards[i].cardName}");
-        }
-        return builder.ToString();
-    }
-
     public int CardCount => cards.Count;
 }

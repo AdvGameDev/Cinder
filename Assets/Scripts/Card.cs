@@ -18,10 +18,4 @@ public class Card
     {
         effects = new List<CardEffect>();
     }
-
-    public Card(string cardName, string description)
-    {
-        this.cardName = cardName;
-        this.description = description;
-    }
 }
