@@ -49,7 +49,7 @@ public class CraftingMenuDeckUI : MonoBehaviour
         RepositionCards();
     }
     
-        // To be fine-tuned with real cards
+    // Kinda jank, doesnt fit every card on screen
     private void RepositionCards()
     {
         float cardWidth = 100f;
