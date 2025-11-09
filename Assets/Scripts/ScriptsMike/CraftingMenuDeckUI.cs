@@ -32,10 +32,8 @@ public class CraftingMenuDeckUI : MonoBehaviour
         {
             GameObject cardGO = Instantiate(CardPrefab, DeckContainer);
             CraftingCardUI cardUI = cardGO.GetComponent<CraftingCardUI>();
-
             if (cardUI != null)
             {
-
                 Card card = PlayerDeck.cards[i];
                 cardUI.Initialize(card, CraftingManager);
                 Debug.Log($"Instanciating {card.cardName}");
@@ -45,24 +43,6 @@ public class CraftingMenuDeckUI : MonoBehaviour
             {
                 Debug.LogError("The assigned Card Prefab does not have a CardUI component on it");
             }
-        }
-        RepositionCards();
-    }
-    
-    // Kinda jank, doesnt fit every card on screen
-    private void RepositionCards()
-    {
-        float cardWidth = 100f;
-        float spacing = 20f;
-        var cardUIs = _cardToUIMap.Values.ToList();
-        float totalWidth = (cardUIs.Count - 1) * (cardWidth + spacing) + cardWidth;
-        float startX = -totalWidth / 2f;
-
-        for (int i = 0; i < cardUIs.Count; i++)
-        {
-            float xPos = startX + i * (cardWidth + spacing);
-            cardUIs[i].transform.localPosition = new Vector3(xPos, 0, 0);
-            cardUIs[i].transform.SetSiblingIndex(i);
         }
     }
 }

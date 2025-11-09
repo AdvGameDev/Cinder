@@ -14,6 +14,7 @@ public class CraftingManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI EssenceDisplayText;
     [SerializeField] private CraftingMenuDeckUI ActionDeckUI;
     [SerializeField] private CraftingMenuDeckUI EnergyDeckUI;
+    // [SerializeField] private CraftingWindow CraftingWindowUI;
     [SerializeField] private GameObject DebugTools; // Temp
     private bool ShowDebugTools = false;
 
@@ -25,6 +26,10 @@ public class CraftingManager : MonoBehaviour
     void Start()
     {
         DebugTools.SetActive(ShowDebugTools);
+
+        ActionDeckUI.gameObject.SetActive(true);
+        EnergyDeckUI.gameObject.SetActive(false);
+        // CraftingWindowUI.gameObject.SetActive(false);
 
         PlayerEnergyDeck = new Deck();
         PlayerEnergyDeck.Initialize(InitialDeckData.GetInitialEnergyDeck());
@@ -47,8 +52,28 @@ public class CraftingManager : MonoBehaviour
 
     private void UpdateDeck()
     {
-        EnergyDeckUI.DisplayDeck();
-        ActionDeckUI.DisplayDeck();
+        EnergyDeckUI?.DisplayDeck();
+        ActionDeckUI?.DisplayDeck();
+    }
+
+    public void UpdateDeckDisplay(int deckNum)
+    {
+        // deckNum = 0 if we are showing energy deck
+        // deckNum = 1 if we are showing action deck
+        if (deckNum == 0)
+        {
+            EnergyDeckUI.gameObject.SetActive(true);
+            ActionDeckUI.gameObject.SetActive(false);
+        }
+        else if (deckNum == 1)
+        {
+            EnergyDeckUI.gameObject.SetActive(false);
+            ActionDeckUI.gameObject.SetActive(true);
+        }
+        else
+        {
+            Debug.Log($"Unknown deckNum {deckNum}");
+        }
     }
 
     public void ToggleDebugTools()

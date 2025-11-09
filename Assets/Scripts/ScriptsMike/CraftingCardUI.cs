@@ -11,10 +11,8 @@ public class CraftingCardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField] private TextMeshProUGUI _descriptionText;
     [SerializeField] private TextMeshProUGUI _costText;
     [SerializeField] private Image _artImage;
-
     private Card _cardData;
     private CraftingManager _craftingManager;
-
     private Vector3 _startPosition;
     private Transform _originalParent;
     private int _originalSiblingIndex;
@@ -58,13 +56,13 @@ public class CraftingCardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         // Enlarge and bring to front on hover
         transform.localScale = Vector3.one * 1.1f;
-        transform.SetAsLastSibling();
+        // transform.SetAsLastSibling();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         // Return to normal size when mouse leaves
         transform.localScale = Vector3.one;
-        transform.SetSiblingIndex(_originalSiblingIndex);
+        // transform.SetSiblingIndex(_originalSiblingIndex);
     }
 }
