@@ -14,13 +14,14 @@ public class CraftingManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI EssenceDisplayText;
     [SerializeField] private CraftingMenuDeckUI ActionDeckUI;
     [SerializeField] private CraftingMenuDeckUI EnergyDeckUI;
-    // [SerializeField] private CraftingWindow CraftingWindowUI;
+    [SerializeField] private CraftingMenuCraftingUI CraftableCardsListUI;
     [SerializeField] private GameObject DebugTools; // Temp
     private bool ShowDebugTools = false;
 
     [Header("Player stuff")]
     [SerializeField] private Deck PlayerEnergyDeck;
     [SerializeField] private Deck PlayerActionDeck;
+    [SerializeField] private Deck CraftableCardsList;
     [SerializeField] private List<int> PlayerEssences;
 
     void Start()
@@ -29,7 +30,7 @@ public class CraftingManager : MonoBehaviour
 
         ActionDeckUI.gameObject.SetActive(true);
         EnergyDeckUI.gameObject.SetActive(false);
-        // CraftingWindowUI.gameObject.SetActive(false);
+        CraftableCardsListUI.gameObject.SetActive(false);
 
         PlayerEnergyDeck = new Deck();
         PlayerEnergyDeck.Initialize(InitialDeckData.GetInitialEnergyDeck());
@@ -39,7 +40,11 @@ public class CraftingManager : MonoBehaviour
         PlayerActionDeck.Initialize(InitialDeckData.GetInitialPlayerDeck());
         ActionDeckUI?.Initialize(this, PlayerActionDeck);
 
-        PlayerEssences = new List<int> { 100, 100, 100, 100, 100 };
+        CraftableCardsList = new Deck();
+        CraftableCardsList.Initialize(InitialDeckData.GetInitialCraftableCards());
+        CraftableCardsListUI?.Initialize(this, CraftableCardsList);
+
+        PlayerEssences = new List<int> { 10, 10, 10, 10, 10 };
 
         UpdateEssenceText();
         UpdateDeck();
@@ -54,21 +59,31 @@ public class CraftingManager : MonoBehaviour
     {
         EnergyDeckUI?.DisplayDeck();
         ActionDeckUI?.DisplayDeck();
+        CraftableCardsListUI?.DisplayDeck();
     }
 
     public void UpdateDeckDisplay(int deckNum)
     {
-        // deckNum = 0 if we are showing energy deck
-        // deckNum = 1 if we are showing action deck
         if (deckNum == 0)
         {
+            // deckNum = 0 if we are showing energy deck
             EnergyDeckUI.gameObject.SetActive(true);
             ActionDeckUI.gameObject.SetActive(false);
+            CraftableCardsListUI.gameObject.SetActive(false);
         }
         else if (deckNum == 1)
         {
+            // deckNum = 1 if we are showing action deck
             EnergyDeckUI.gameObject.SetActive(false);
             ActionDeckUI.gameObject.SetActive(true);
+            CraftableCardsListUI.gameObject.SetActive(false);
+        }
+        else if (deckNum == 2)
+        {
+            // deckNum = 2 if we are showing the crafting menu
+            EnergyDeckUI.gameObject.SetActive(false);
+            ActionDeckUI.gameObject.SetActive(false);
+            CraftableCardsListUI.gameObject.SetActive(true);
         }
         else
         {

@@ -6,7 +6,7 @@ using System.Text;
 public class CraftingRecipeTemplate : ScriptableObject
 {
     public string RecipeName;
-    public List<int> CraftingEssenceCost; // [0] = Fire, [1] = Earth, [2] = Water, [3] = Air, [4] = Generi
+    public List<int> CraftingEssenceCost; // [0] = Fire, [1] = Earth, [2] = Water, [3] = Air, [4] = Generic
     public Card CraftingResult;
 
     public CraftingRecipeTemplate(string recipeName, List<int> craftingEssenceCost, Card craftingResult)

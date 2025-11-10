@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-public class CraftingCardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class CraftingDeckViewCardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("UI Refernences")]
     [SerializeField] private TextMeshProUGUI _nameText;
@@ -54,15 +54,11 @@ public class CraftingCardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        // Enlarge and bring to front on hover
         transform.localScale = Vector3.one * 1.1f;
-        // transform.SetAsLastSibling();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        // Return to normal size when mouse leaves
         transform.localScale = Vector3.one;
-        // transform.SetSiblingIndex(_originalSiblingIndex);
     }
 }

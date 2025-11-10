@@ -2,14 +2,14 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 
-public class CraftingMenuDeckUI : MonoBehaviour
+public class CraftingMenuCraftingUI : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private GameObject CardPrefab;
     private Transform DeckContainer;
     private CraftingManager CraftingManager;
     private Deck PlayerDeck;
-    private Dictionary<Card, CraftingDeckViewCardUI> _cardToUIMap = new Dictionary<Card, CraftingDeckViewCardUI>();
+    private Dictionary<Card, CraftingCraftViewCardUI> _cardToUIMap = new Dictionary<Card, CraftingCraftViewCardUI>();
 
     public void Initialize(CraftingManager manager, Deck deck)
     {
@@ -31,17 +31,17 @@ public class CraftingMenuDeckUI : MonoBehaviour
         for (int i = 0; i < PlayerDeck.cards.Count; i++)
         {
             GameObject cardGO = Instantiate(CardPrefab, DeckContainer);
-            CraftingDeckViewCardUI cardUI = cardGO.GetComponent<CraftingDeckViewCardUI>();
+            CraftingCraftViewCardUI cardUI = cardGO.GetComponent<CraftingCraftViewCardUI>();
             if (cardUI != null)
             {
                 Card card = PlayerDeck.cards[i];
                 cardUI.Initialize(card, CraftingManager);
-                // Debug.Log($"Instanciating {card.cardName}");
+                Debug.Log($"Instanciating {card.cardName}");
                 _cardToUIMap[card] = cardUI;
             }
             else
             {
-                Debug.LogError("The assigned Card Prefab does not have a CraftingDeckViewCardUI component on it");
+                Debug.LogError("The assigned Card Prefab does not have a CraftingCraftViewCardUI component on it");
             }
         }
     }
