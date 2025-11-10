@@ -109,12 +109,12 @@ public class CraftingManager : MonoBehaviour
         }
     }
 
-    private bool CanCraftCard(CraftingRecipeTemplate recipe)
+    private bool CanCraftCard(Card card)
     {
-        Assert.IsNotNull(recipe);
+        Assert.IsNotNull(card);
         for (int i = 0; i < PlayerEssences.Count; i++)
         {
-            if (PlayerEssences[i] < recipe.CraftingEssenceCost[i])
+            if (PlayerEssences[i] < card.CraftingEssenceCost[i])
             {
                 return false;
             }
@@ -122,21 +122,33 @@ public class CraftingManager : MonoBehaviour
         return true;
     }
 
-    public void CraftCard(CraftingRecipeTemplate recipe)
+    public void CraftCard(Card card)
     {
-        // Assert.IsNotNull(recipe);
-        // if (!CanCraftCard(recipe))
-        // {
-        //     Debug.Log("Not enough essences to craft this card.");
-        //     return;
-        // }
-        // for (int i = 0; i < PlayerEssences.Count; i++)
-        // {
-        //     PlayerEssences[i] -= recipe.CraftingEssenceCost[i];
-        // }
-        // PlayerDeck.AddCard(recipe.CraftingResult); // add card to player's deck
-        // Debug.Log($"Crafted card: {recipe.CraftingResult.cardName}");
-        // UpdateText();
+        Assert.IsNotNull(card, "Cannot craft null");
+        if (CanCraftCard(card))
+        {
+            Debug.Log($"Crafting {card.cardName}");
+            for (int i = 0; i < PlayerEssences.Count; i++)
+            {
+                PlayerEssences[i] -= card.CraftingEssenceCost[i];
+            }
+            UpdateEssenceText();
+            switch (card.cardType)
+            {
+                case CardType.Action:
+                    PlayerActionDeck.AddCard(card);
+                    ActionDeckUI.AddCardToDisplay(card);
+                    break;
+                case CardType.Energy:
+                    PlayerEnergyDeck.AddCard(card);
+                    EnergyDeckUI.AddCardToDisplay(card);
+                    break;
+            }
+        }
+        else
+        {
+            Debug.Log($"Not enough essence!");
+        }
     }
 
     public void AddEssence(int typeIndex, int amount)

@@ -10,6 +10,7 @@ public class CraftingMenuDeckUI : MonoBehaviour
     private CraftingManager CraftingManager;
     private Deck PlayerDeck;
     private Dictionary<Card, CraftingDeckViewCardUI> _cardToUIMap = new Dictionary<Card, CraftingDeckViewCardUI>();
+    private List<GameObject> CurrentlyDisplayedCards = new List<GameObject>();
 
     public void Initialize(CraftingManager manager, Deck deck)
     {
@@ -36,7 +37,7 @@ public class CraftingMenuDeckUI : MonoBehaviour
             {
                 Card card = PlayerDeck.cards[i];
                 cardUI.Initialize(card, CraftingManager);
-                // Debug.Log($"Instanciating {card.cardName}");
+                Debug.Log($"Instanciating {card.cardName}");
                 _cardToUIMap[card] = cardUI;
             }
             else
@@ -44,5 +45,27 @@ public class CraftingMenuDeckUI : MonoBehaviour
                 Debug.LogError("The assigned Card Prefab does not have a CraftingDeckViewCardUI component on it");
             }
         }
+    }
+
+    public void AddCardToDisplay(Card card)
+    {
+        if (CardPrefab == null)
+        {
+            Debug.LogError($"Card Prefab is not set in {this.name}");
+            return;
+        }
+        GameObject cardGO = Instantiate(CardPrefab, DeckContainer);
+        CraftingDeckViewCardUI cardUI = cardGO.GetComponent<CraftingDeckViewCardUI>();
+        if (cardUI != null)
+        {
+            cardUI.Initialize(card, CraftingManager);
+            Debug.Log($"Instanciating {card.cardName}");
+            _cardToUIMap[card] = cardUI;
+        }
+        else
+        {
+            Debug.LogError("The assigned Card Prefab does not have a CraftingDeckViewCardUI component on it");
+        }
+
     }
 }

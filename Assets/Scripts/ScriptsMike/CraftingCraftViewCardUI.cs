@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-public class CraftingCraftViewCardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class CraftingCraftViewCardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     [Header("UI Refernences")]
     [SerializeField] private TextMeshProUGUI _nameText;
@@ -70,5 +70,11 @@ public class CraftingCraftViewCardUI : MonoBehaviour, IPointerEnterHandler, IPoi
         transform.localScale = Vector3.one;
         _craftingCostBackground.gameObject.SetActive(false);
         _craftingCostText.gameObject.SetActive(false);
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (_craftingManager == null) return;
+        _craftingManager.CraftCard(_cardData);
     }
 }
