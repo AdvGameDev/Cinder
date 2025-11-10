@@ -5,6 +5,7 @@ using UnityEngine.Assertions;
 using System.Linq;
 using UnityEngine.UI;
 using Unity.VisualScripting;
+using UnityEngine.UIElements;
 
 public class CraftingManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class CraftingManager : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private TextMeshProUGUI EssenceDisplayText;
+    [SerializeField] private ScrollRect ScrollViewRect;
     [SerializeField] private CraftingMenuDeckUI ActionDeckUI;
     [SerializeField] private CraftingMenuDeckUI EnergyDeckUI;
     [SerializeField] private CraftingMenuCraftingUI CraftableCardsListUI;
@@ -70,6 +72,7 @@ public class CraftingManager : MonoBehaviour
             EnergyDeckUI.gameObject.SetActive(true);
             ActionDeckUI.gameObject.SetActive(false);
             CraftableCardsListUI.gameObject.SetActive(false);
+            ScrollViewRect.content = EnergyDeckUI.GetComponent<RectTransform>();
         }
         else if (deckNum == 1)
         {
@@ -77,6 +80,7 @@ public class CraftingManager : MonoBehaviour
             EnergyDeckUI.gameObject.SetActive(false);
             ActionDeckUI.gameObject.SetActive(true);
             CraftableCardsListUI.gameObject.SetActive(false);
+            ScrollViewRect.content = ActionDeckUI.GetComponent<RectTransform>();
         }
         else if (deckNum == 2)
         {
@@ -84,6 +88,7 @@ public class CraftingManager : MonoBehaviour
             EnergyDeckUI.gameObject.SetActive(false);
             ActionDeckUI.gameObject.SetActive(false);
             CraftableCardsListUI.gameObject.SetActive(true);
+            ScrollViewRect.content = CraftableCardsListUI.GetComponent<RectTransform>();
         }
         else
         {

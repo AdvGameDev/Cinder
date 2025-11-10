@@ -764,6 +764,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CraftingManager
   EssenceDisplayText: {fileID: 1238266211}
+  ScrollViewRect: {fileID: 1614568507}
   ActionDeckUI: {fileID: 2139173250}
   EnergyDeckUI: {fileID: 356322963}
   CraftableCardsListUI: {fileID: 1611654415}
@@ -4269,8 +4270,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000013278482}
-  m_SizeDelta: {x: 0, y: 10}
+  m_AnchoredPosition: {x: 0, y: 0.000051905463}
+  m_SizeDelta: {x: -4.51532, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2139173250
 MonoBehaviour:
@@ -4298,7 +4299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.ContentSizeFitter
   m_HorizontalFit: 0
-  m_VerticalFit: 0
+  m_VerticalFit: 2
 --- !u!114 &2139173252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4321,7 +4322,7 @@ MonoBehaviour:
   m_StartAxis: 0
   m_CellSize: {x: 100, y: 150}
   m_Spacing: {x: 10, y: 10}
-  m_Constraint: 0
+  m_Constraint: 1
   m_ConstraintCount: 6
 --- !u!1 &2144727417
 GameObject:
