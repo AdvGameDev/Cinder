@@ -20,8 +20,7 @@ public class Player : Character
     public event Action<Dictionary<ElementType, int>> OnEnergyChanged;
     public Dictionary<ElementType, int> CurrentEnergy => _currentEnergy;
 
-    public int currentBlock;
-    public event Action<int> OnBlockChanged;
+    // Note: currentBlock and OnBlockChanged are now in Character base class
 
     // --- Initialization ---
 
@@ -29,7 +28,7 @@ public class Player : Character
     {
         base.Awake();
         InitializeEnergy();
-        currentBlock = 0;
+        // Note: currentBlock is initialized in Character base class
     }
 
     public void Setup(int startingHealth, int newMaxHealth, List<Card> initialActionDeck, List<Card> initialEnergyDeck)
@@ -43,8 +42,7 @@ public class Player : Character
         exhaustPile.Clear();
 
         InitializeEnergy();
-        currentBlock = 0;
-        OnBlockChanged?.Invoke(currentBlock);
+        // Note: currentBlock is reset in base.Setup() which already invokes OnBlockChanged
     }
 
     private void InitializeEnergy()
@@ -61,8 +59,7 @@ public class Player : Character
 
     public void StartTurn()
     {
-        currentBlock = 0;
-        OnBlockChanged?.Invoke(currentBlock);
+        ResetBlock();
 
         drawsRemaining = drawsPerTurn;
         Debug.Log($"Player turn started. {drawsRemaining} draws remaining.");
@@ -214,24 +211,15 @@ public class Player : Character
     }
 
     // --- Block & Health Logic ---
+    // Note: GainBlock is now in Character base class
 
-    public void GainBlock(int amount)
-    {
-        if (amount <= 0) return;
-        currentBlock += amount;
-        OnBlockChanged?.Invoke(currentBlock);
-    }
+    // --- Block & Health Logic ---
+    // Note: GainBlock is now in Character base class
 
     public override void TakeDamage(int amount)
     {
-        int damageToHealth = amount - currentBlock;
-        currentBlock = Mathf.Max(0, currentBlock - amount);
-        OnBlockChanged?.Invoke(currentBlock);
-
-        if (damageToHealth > 0)
-        {
-            base.TakeDamage(damageToHealth);
-        }
+        // Player-specific behavior: apply block before taking damage
+        base.TakeDamage(amount);
     }
 
     // --- Report Battle End ---

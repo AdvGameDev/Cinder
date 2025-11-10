@@ -8,10 +8,12 @@ public class Character : MonoBehaviour
 {
     public event Action OnDeath;
     public event Action<int, int> OnHealthChanged; // (currentHealth, maxHealth)
+    public event Action<int> OnBlockChanged;
 
     public string characterName;
     public int maxHealth;
     public int currentHealth;
+    public int currentBlock;
     public bool isDead;
 
     public Sprite characterSprite;
@@ -30,24 +32,46 @@ public class Character : MonoBehaviour
     {
         maxHealth = newMaxHealth;
         currentHealth = startingHealth;
+        currentBlock = 0;
         isDead = false;
         spriteRenderer.sprite = characterSprite;
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
+        OnBlockChanged?.Invoke(currentBlock);
     }
 
     public virtual void TakeDamage(int amount)
     {
         if (isDead) return;
 
-        currentHealth -= amount;
-        if (currentHealth < 0) currentHealth = 0;
+        int damageToHealth = amount - currentBlock;
+        currentBlock = Mathf.Max(0, currentBlock - amount);
+        OnBlockChanged?.Invoke(currentBlock);
 
-        OnHealthChanged?.Invoke(currentHealth, maxHealth);
-
-        if (currentHealth <= 0)
+        if (damageToHealth > 0)
         {
-            Die();
+            currentHealth -= damageToHealth;
+            if (currentHealth < 0) currentHealth = 0;
+
+            OnHealthChanged?.Invoke(currentHealth, maxHealth);
+
+            if (currentHealth <= 0)
+            {
+                Die();
+            }
         }
+    }
+
+    public virtual void GainBlock(int amount)
+    {
+        if (amount <= 0) return;
+        currentBlock += amount;
+        OnBlockChanged?.Invoke(currentBlock);
+    }
+
+    public void ResetBlock()
+    {
+        currentBlock = 0;
+        OnBlockChanged?.Invoke(currentBlock);
     }
 
     protected void Die()

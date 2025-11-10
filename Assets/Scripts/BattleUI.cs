@@ -13,6 +13,7 @@ public class BattleUI : MonoBehaviour
 
     [Header("Enemy UI")]
     [SerializeField] private TextMeshProUGUI _enemyHealthText;
+    [SerializeField] private TextMeshProUGUI _enemyBlockText;
     [SerializeField] private TextMeshProUGUI _enemyIntentText;
 
     [Header("Turn/State UI")]
@@ -42,6 +43,7 @@ public class BattleUI : MonoBehaviour
         if (_battleManager.Enemy != null)
         {
             _battleManager.Enemy.OnHealthChanged += UpdateEnemyHealth;
+            _battleManager.Enemy.OnBlockChanged += UpdateEnemyBlock;
         }
 
         // --- Button Listeners ---
@@ -52,6 +54,7 @@ public class BattleUI : MonoBehaviour
         UpdatePlayerBlock(_battleManager.Player.currentBlock);
         UpdatePlayerEnergy(_battleManager.Player.CurrentEnergy);
         UpdateEnemyHealth(_battleManager.Enemy.currentHealth, _battleManager.Enemy.maxHealth);
+        UpdateEnemyBlock(_battleManager.Enemy.currentBlock);
         _victoryPanel?.SetActive(false);
         _defeatPanel?.SetActive(false);
     }
@@ -80,6 +83,14 @@ public class BattleUI : MonoBehaviour
     private void UpdateEnemyHealth(int current, int max)
     {
         _enemyHealthText.text = $"HP: {current} / {max}";
+    }
+
+    private void UpdateEnemyBlock(int amount)
+    {
+        if (_enemyBlockText != null)
+        {
+            _enemyBlockText.text = amount > 0 ? $"Block: {amount}" : "";
+        }
     }
 
     public void OnTurnChanged()
@@ -120,6 +131,7 @@ public class BattleUI : MonoBehaviour
             if (_battleManager.Enemy != null)
             {
                 _battleManager.Enemy.OnHealthChanged -= UpdateEnemyHealth;
+                _battleManager.Enemy.OnBlockChanged -= UpdateEnemyBlock;
             }
             _endTurnButton?.onClick.RemoveAllListeners();
         }
