@@ -2,5 +2,6 @@ public enum ElementType
 {
     Fire,
     Earth,
-    Water
+    Water,
+    Neutral
 }

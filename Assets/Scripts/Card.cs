@@ -14,6 +14,8 @@ public class Card
 
     public List<CardEffect> effects;
 
+    public List<int> CraftingEssenceCost; // TEMP for MVP
+
     public Card()
     {
         effects = new List<CardEffect>();

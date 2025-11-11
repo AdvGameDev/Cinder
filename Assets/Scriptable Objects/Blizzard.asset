@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c4147cde48482f45af5758b374f73ce, type: 3}
+  m_Name: Blizzard
+  m_EditorClassIdentifier: Assembly-CSharp::CraftingRecipeTemplate
+  RecipeName: Blizzard
+  CraftingEssenceCost: 
+  CraftingResult:
+    cardName: Blizzard
+    cardType: 0
+    description: Deal 3 damage \nGain 3 block
+    energyCost:
+      genericCost: 0
+      specificCosts:
+      - elementType: 2
+        amount: 1
+    effects:
+    - effectType: 0
+      effectValue: 3
+      elementType: 2
+    - effectType: 1
+      effectValue: 3
+      elementType: 2
