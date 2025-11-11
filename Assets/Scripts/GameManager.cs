@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 // Singleton that manages the persistent game state between battles
 public class GameManager : MonoBehaviour
@@ -73,5 +74,6 @@ public class GameManager : MonoBehaviour
             Debug.Log("Game Over!");
             return;
         }
+        SceneManager.LoadScene("Scenes/Crafting");
     }
 }

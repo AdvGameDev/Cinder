@@ -56,7 +56,7 @@ public static class InitialDeckData
             description = "Gain 7 block",
             cardType = CardType.Action,
             energyCost = new EnergyCost(0, new List<ElementCost> { new ElementCost(ElementType.Earth, 1) }),
-            effects = new List<CardEffect> { new CardEffect { effectType = CardEffectType.Damage, effectValue = 7 } },
+            effects = new List<CardEffect> { new CardEffect { effectType = CardEffectType.Block, effectValue = 7 } },
             CraftingEssenceCost = new List<int> { 0, 5, 0, 0, 0 } // TEMP for MVP
         };
         deck.Add(earthShieldCard);
@@ -133,7 +133,7 @@ public static class InitialDeckData
     {
         List<Card> deck = new List<Card>();
         EnergyCost costToPlay = new EnergyCost(0, new List<ElementCost>());
-        
+
         Card strikeCard = new Card
         {
             cardName = "Strike",
@@ -143,7 +143,7 @@ public static class InitialDeckData
             effects = new List<CardEffect> { new CardEffect { effectType = CardEffectType.Damage, effectValue = 6 } },
             CraftingEssenceCost = new List<int> { 0, 0, 0, 0, 5 } // TEMP for MVP
         };
-        
+
         Card blockCard = new Card
         {
             cardName = "Block",
@@ -153,7 +153,7 @@ public static class InitialDeckData
             effects = new List<CardEffect> { new CardEffect { effectType = CardEffectType.Block, effectValue = 5 } },
             CraftingEssenceCost = new List<int> { 0, 0, 0, 0, 5 } // TEMP for MVP
         };
-        
+
         Card fireballCard = new Card
         {
             cardName = "Fireball",
@@ -163,7 +163,7 @@ public static class InitialDeckData
             effects = new List<CardEffect> { new CardEffect { effectType = CardEffectType.Damage, effectValue = 8 } },
             CraftingEssenceCost = new List<int> { 5, 0, 0, 0, 0 } // TEMP for MVP
         };
-        
+
         Card earthShieldCard = new Card
         {
             cardName = "Earth Shield",
