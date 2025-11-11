@@ -24,6 +24,9 @@ public class CardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
         _cardData = card;
         _battleManager = manager;
 
+        // Initialize sibling index to prevent cards jumping to position 0 on hover
+        _originalSiblingIndex = transform.GetSiblingIndex();
+
         _nameText.text = _cardData.cardName;
         _descriptionText.text = _cardData.description;
 
@@ -50,6 +53,12 @@ public class CardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
         {
             _costText.text = "0";
         }
+    }
+
+    // Update the stored sibling index when cards are repositioned
+    public void UpdateSiblingIndex(int index)
+    {
+        _originalSiblingIndex = index;
     }
 
     // --- Mouse Hover Effects ---
