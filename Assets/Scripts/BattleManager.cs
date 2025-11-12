@@ -8,7 +8,8 @@ public class BattleManager : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Player _player;
-    [SerializeField] private Enemy _enemy;
+    [SerializeField] private Enemy[] _possibleEnemies; // Array of enemy prefabs to randomly choose from
+    [SerializeField] private Transform _enemySpawnPoint; // Where to spawn the enemy
     [SerializeField] private BattleUI _battleUI;
     [SerializeField] private DeckUI _actionDeckUI;
     [SerializeField] private DeckUI _energyDeckUI;
@@ -31,6 +32,8 @@ public class BattleManager : MonoBehaviour
 
     private BattleState _currentState = BattleState.Inactive;
 
+    private Enemy _enemy; // Runtime reference to the spawned enemy
+
     public BattleState CurrentState => _currentState;
     public Player Player => _player;
     public Enemy Enemy => _enemy;
@@ -40,6 +43,19 @@ public class BattleManager : MonoBehaviour
     public void SetupBattle(int currentPlayerHealth, List<Card> playerActionDeck, List<Card> playerEnergyDeck)
     {
         Debug.Log("BattleManager: Setting up battle...");
+
+        // Randomly select and instantiate an enemy
+        if (_possibleEnemies == null || _possibleEnemies.Length == 0)
+        {
+            Debug.LogError("No enemy prefabs assigned to BattleManager!");
+            return;
+        }
+
+        Enemy selectedEnemyPrefab = _possibleEnemies[UnityEngine.Random.Range(0, _possibleEnemies.Length)];
+        _enemy = Instantiate(selectedEnemyPrefab, _enemySpawnPoint.position, Quaternion.identity);
+        _enemy.transform.SetParent(_enemySpawnPoint, false);
+
+        Debug.Log($"Spawned enemy: {_enemy.characterName}");
 
         _player.Setup(currentPlayerHealth, Player.maxHealth, playerActionDeck, playerEnergyDeck);
         _enemy.Setup(_enemy.maxHealth, _enemy.maxHealth);
@@ -63,6 +79,15 @@ public class BattleManager : MonoBehaviour
     {
         if (_player != null) _player.OnDeath -= OnPlayerDeath;
         if (_enemy != null) _enemy.OnDeath -= OnEnemyDeath;
+    }
+
+    private void OnDestroy()
+    {
+        // Clean up spawned enemy
+        if (_enemy != null && _enemy.gameObject != null)
+        {
+            Destroy(_enemy.gameObject);
+        }
     }
 
     private void StartPlayerTurn()
@@ -125,6 +150,9 @@ public class BattleManager : MonoBehaviour
         _battleUI?.UpdateBattleStateText("ENEMY TURN");
         Debug.Log("--- Enemy Turn ---");
         yield return new WaitForSeconds(0.5f);
+
+        // Reset enemy block at start of their turn (like Slay the Spire)
+        _enemy?.ResetBlock();
 
         _enemy?.TakeTurn(_player);
         _battleUI?.OnTurnChanged();

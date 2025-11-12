@@ -6,7 +6,7 @@ public class Enemy : Character
     [SerializeField] private int _attackDamage = 5;
     // Add more actions later
 
-    private string _nextTurnIntent;
+    protected string _nextTurnIntent;
 
     public override void Setup(int startingHealth, int newMaxHealth)
     {
@@ -14,7 +14,7 @@ public class Enemy : Character
         PrepareNextTurn();
     }
 
-    public void TakeTurn(Player target)
+    public virtual void TakeTurn(Player target)
     {
         if (target == null || target.isDead) return;
 
