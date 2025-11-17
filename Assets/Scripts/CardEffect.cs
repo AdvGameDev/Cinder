@@ -5,14 +5,13 @@ public enum CardEffectType
 {
     Damage,
     Block,
-    GainEnergy
+    Move,
+    Count // trick to see how many enums there are
 }
 
 [System.Serializable]
-public class CardEffect
+public struct CardEffect
 {
     public CardEffectType effectType;
     public int effectValue;
-
-    public ElementType elementType;
 }

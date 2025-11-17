@@ -1,21 +1,27 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-
-public enum CardType { Action, Energy }
 
 [System.Serializable]
 public class Card
 {
-    public string cardName;
-    public CardType cardType;
-    public string description;
+    public string Name;
+    public string Description;
+    public List<CardEffect> Effects;
 
-    public ElementCost energyCost;
+    public CardTemplate Template;
+    public string GUID;
 
-    public List<CardEffect> effects;
-
-    public Card()
+    public Card(CardTemplate template)
     {
-        effects = new List<CardEffect>();
+        Template = template;
+        Name = Template.Name;
+        Description = Template.Description;
+        Effects = new List<CardEffect>();
+        foreach (CardEffect effect in Template.Effects)
+        {
+            Effects.Add(effect);
+        }
+        GUID = System.Guid.NewGuid().ToString();
     }
 }

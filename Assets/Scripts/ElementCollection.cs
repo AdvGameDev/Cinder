@@ -1,4 +1,3 @@
-using Mono.Cecil;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -13,21 +12,8 @@ public enum ElementType
     Count // trick for getting number of types
 }
 
-[System.Serializable]
-public struct ElementCost
-{
-    public int Generic;
-    public ElementCollection Specific;
-
-    public ElementCost(int generic, ElementCollection specific)
-    {
-        Generic = generic;
-        Specific = specific;
-    }
-}
-
 // Reusable Iterable Data Structure for Elemental Related Things
-// e.g. Essences, Energy Cost, Current Energy, etc.
+// e.g. Essences, Crafting Cost, etc.
 [System.Serializable]
 public struct ElementCollection
 {
@@ -59,20 +45,7 @@ public struct ElementCollection
         }
     }
 
-    public bool CanAfford(ElementCost cost)
-    {
-        if (this < cost.Specific)
-        {
-            return false;
-        }
-
-        return (this - cost.Specific).TotalValue >= cost.Generic;
-    }
-
-    public void Expend(ElementCost cost)
-    {
-        Assert.IsTrue(CanAfford(cost));
-    }
+    // TODO: make reduction specific elements to neutral possible
 
     // make field access iterable
     public int this[int index]
